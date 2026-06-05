@@ -183,7 +183,6 @@ function AgencyExplorer({annotations,onAnnotate}){
       POLICY_COUNT:num(r.POLICY_COUNT)})));
     setSrc(filename);setExpanded(null);setExpandedBroker(null);
     setFilters({carrier:"ALL",branch:"ALL",policyType:"ALL",state:"ALL",txType:"ALL"});
-    setDateFrom("");setDateTo("");
   };
 
   let fr=rows;
@@ -192,8 +191,8 @@ function AgencyExplorer({annotations,onAnnotate}){
   if(filters.policyType!=="ALL")fr=fr.filter(r=>r.POLICYTYPE_NAME===filters.policyType);
   if(filters.state!=="ALL")fr=fr.filter(r=>r.STATE_NAME===filters.state);
   if(filters.txType!=="ALL")fr=fr.filter(r=>r.TRANSACTION_TYPE===filters.txType);
-  if(dateFrom)fr=fr.filter(r=>r.EFFECTIVE_DATE>=dateFrom);
-  if(dateTo)fr=fr.filter(r=>r.EFFECTIVE_DATE<=dateTo);
+  if(dateFrom)fr=fr.filter(r=>r.EFFECTIVE_MONTH&&r.EFFECTIVE_MONTH>=dateFrom);
+  if(dateTo)fr=fr.filter(r=>r.EFFECTIVE_MONTH&&r.EFFECTIVE_MONTH<=dateTo);
 
   const agencyMap={};
   fr.forEach(r=>{
